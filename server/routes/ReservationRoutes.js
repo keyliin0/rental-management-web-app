@@ -20,7 +20,7 @@ module.exports = app => {
     // just in case someone makes a fake call to the api
     const property = await Property.findById(property_id);
     if (!property) {
-      return res.status(406).send({ error: "property do not exist" });
+      return res.status(406).send({ error: "property does not exist" });
     }
     // check if its reserved
     if (checkReserved(property, Date.parse(checkin), Date.parse(checkout))) {

@@ -5,7 +5,8 @@ const {
   GraphQLString,
   GraphQLID,
   GraphQLList,
-  GraphQLInt
+  GraphQLInt,
+  GraphQLFloat
 } = graphql;
 const UserType = require("./user_type");
 
@@ -28,7 +29,7 @@ const PropertyType = new GraphQLObjectType({
         name: "LocationType",
         fields: () => ({
           type: { type: GraphQLString },
-          coordinates: { type: new GraphQLList(GraphQLInt) }
+          coordinates: { type: new GraphQLList(GraphQLFloat) }
         })
       })
     },

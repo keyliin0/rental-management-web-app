@@ -7,9 +7,9 @@ require("../models/Reservations");
 require("../models/Invoices");
 
 const RootQueryType = require("./root_query_type");
-//const mutations = require("./mutations");
+const mutations = require("./mutations");
 
 module.exports = new GraphQLSchema({
   query: RootQueryType,
-  mutation: null
+  mutation: mutations
 });

@@ -5,14 +5,32 @@ const {
   GraphQLList,
   GraphQLID,
   GraphQLNonNull,
-  GraphQLInt
+  GraphQLInt,
+  GraphQLFloat,
+  GraphQLString
 } = graphql;
-const PropertyType = require("./property_type");
+const PropertyType = require("./types/property_type");
+const ReservationType = require("./types/reservation_type");
 const Property = mongoose.model("properties");
+const Reservation = mongoose.model("reservations");
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: () => ({
+    Properties: {
+      type: new GraphQLList(PropertyType),
+      args: {
+        page: { type: GraphQLInt },
+        city: { type: GraphQLString },
+        lng: { type: GraphQLFloat },
+        lat: { type: GraphQLFloat }
+      },
+      resolve(parentValue, { page, city, lng, lat }) {
+        if (lng && lat) return Property.GetNearby(lng, lat);
+        else if (city) return Property.GetByCity(page, city);
+        else return Property.Get(page);
+      }
+    },
     MyProperties: {
       type: new GraphQLList(PropertyType),
       args: {
@@ -20,6 +38,13 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve(parentValue, { page }, req) {
         return Property.GetMy(req.user, page);
+      }
+    },
+    Reservations: {
+      type: new GraphQLList(ReservationType),
+
+      resolve(parentValue, args, req) {
+        return Reservation.Get(req.user);
       }
     }
   })

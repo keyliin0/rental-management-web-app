@@ -7,6 +7,7 @@ const cookiesession = require("cookie-session");
 const bodyParser = require("body-parser");
 const expressGraphQL = require("express-graphql");
 const schema = require("./graphql/schema");
+const { graphqlUploadExpress } = require("graphql-upload");
 
 require("./models/Users");
 require("./models/Properties");
@@ -37,6 +38,7 @@ require("./routes/ReservationRoutes")(app);
 //  graphql
 app.use(
   "/graphql",
+  graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
   expressGraphQL({
     schema,
     graphiql: true

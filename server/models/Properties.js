@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const keys = require("../config/keys");
+const axios = require("axios");
 
 const PropertySchema = new Schema({
   name: { type: String },
@@ -45,6 +47,126 @@ PropertySchema.statics.GetMy = async function(user, page) {
     .skip(10 * parseInt(page))
     .populate("owner", "firstname lastname imgURL");
   return properties;
+};
+
+PropertySchema.statics.Get = async function(page) {
+  const Property = mongoose.model("properties");
+  const properties = await Property.find({})
+    .limit(10)
+    .skip(10 * parseInt(page))
+    .populate("owner", "firstname lastname imgURL");
+  return properties;
+};
+
+PropertySchema.statics.GetByCity = async function(page, city) {
+  const Property = mongoose.model("properties");
+  const properties = await Property.find({ city: city })
+    .limit(10)
+    .skip(10 * parseInt(page))
+    .populate("owner", "firstname lastname imgURL");
+  return properties;
+};
+
+PropertySchema.statics.GetNearby = async function(lng, lat) {
+  const Property = mongoose.model("properties");
+  const properties = await Property.find({
+    location: {
+      $near: {
+        $maxDistance: 1000,
+        $geometry: {
+          type: "Point",
+          coordinates: [parseFloat(lng), parseFloat(lat)]
+        }
+      }
+    }
+  })
+    .limit(20)
+    .populate("owner", "firstname lastname imgURL");
+  return properties;
+};
+
+const getCircularReplacer = () => {
+  const seen = new WeakSet();
+  return (key, value) => {
+    if (typeof value === "object" && value !== null) {
+      if (seen.has(value)) {
+        return;
+      }
+      seen.add(value);
+    }
+    return value;
+  };
+};
+
+PropertySchema.statics.Create = async function(
+  files,
+  name,
+  type,
+  guests,
+  bathrooms,
+  bedrooms,
+  beds,
+  size,
+  description,
+  address,
+  city,
+  price,
+  minimum_stay,
+  maximum_stay,
+  user
+) {
+  const cloudinary = require("cloudinary");
+  const Property = mongoose.model("properties");
+  const request = await axios.get(
+    "https://api.opencagedata.com/geocode/v1/json?key=" +
+      keys.opencage_api_key +
+      "&q=" +
+      encodeURI(address)
+  );
+  let cords = null;
+  if (request.data.results[0])
+    cords = [
+      request.data.results[0].geometry.lng,
+      request.data.results[0].geometry.lat
+    ];
+  // -- upload images to  cloudinary
+  let res_promises = files.map(
+    photo =>
+      new Promise((resolve, reject) => {
+        const { createReadStream } = photo;
+        const stream = cloudinary.uploader.upload_stream(function(
+          result,
+          error
+        ) {
+          if (error) reject(error);
+          else resolve(result.url);
+        });
+        createReadStream().pipe(stream);
+      })
+  );
+  // --
+  const images = await Promise.all(res_promises);
+  const property = new Property({
+    name,
+    type,
+    guests,
+    bathrooms,
+    bedrooms,
+    beds,
+    size,
+    description,
+    address,
+    city,
+    price,
+    availability: { minimum_stay, maximum_stay },
+    owner: user.id,
+    images,
+    location: {
+      coordinates: cords
+    }
+  });
+  await property.save();
+  return property;
 };
 
 PropertySchema.index({ location: "2dsphere" });
