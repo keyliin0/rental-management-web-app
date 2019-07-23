@@ -1,0 +1,14 @@
+.trending {
+  text-align: center;
+  & .title {
+    display: inline-block;
+    margin-top: 20px;
+    & h2 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  }
+  .image-hover-effect {
+    margin-bottom: 5%;
+  }
+}

@@ -1,0 +1,61 @@
+.listings {
+  background-color: #f7f8f9;
+  & .title {
+    margin: 15px 0;
+    & h1 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    &::after {
+      content: " ";
+      display: block;
+      margin-top: 25px;
+      border-bottom: 1px solid #777777;
+      opacity: 0.1;
+    }
+  }
+  & .properties {
+    & .property {
+      border: 1px solid transparent;
+      margin-bottom: 15px;
+      & .thumbnail {
+        margin: 0;
+        height: 250px;
+        & img {
+          max-width: 100%;
+          max-height: 100%;
+          min-width: 100%;
+          min-height: 100%;
+        }
+      }
+      & .info {
+        padding: 10px 0;
+        text-align: center;
+        background-color: white;
+        & .name {
+          & h2 {
+            font-size: 16px;
+            font-weight: bold;
+          }
+        }
+        & .address {
+          font-size: 14px;
+          color: #949ca5;
+        }
+        & .amenities {
+          & ul li {
+            display: inline;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+  & .loadmore {
+    text-align: center;
+    margin: 20px 0;
+    & button {
+      width: 183px;
+    }
+  }
+}

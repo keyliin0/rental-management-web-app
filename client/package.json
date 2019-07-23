@@ -4,17 +4,26 @@
   "private": true,
   "dependencies": {
     "apollo-boost": "^0.4.3",
+    "bootstrap": "^4.3.1",
     "graphql": "^14.4.2",
+    "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-apollo": "^2.5.8",
+    "react-bootstrap": "^1.0.0-beta.9",
+    "react-day-picker": "^7.3.0",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-images": "^1.0.0",
+    "react-images-viewer": "^1.6.2",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "react-viewerjs": "^0.1.9"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "compile:sass": "node-sass src/styles/main.scss src/styles/main.css -w"
   },
   "eslintConfig": {
     "extends": "react-app"

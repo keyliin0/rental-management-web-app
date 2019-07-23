@@ -1,0 +1,41 @@
+.image-hover-effect {
+  overflow: hidden;
+  position: relative;
+  margin: 20px 0;
+  cursor: pointer;
+  z-index: 99;
+  height: 360px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, 1)
+    );
+    top: 0;
+    z-index: 1;
+  }
+  &:hover img {
+    transform: scale(1.1);
+  }
+  & img {
+    width: 100%;
+    max-height: auto;
+    transition: transform 0.3s ease-out;
+  }
+  & .title {
+    position: absolute;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1;
+    bottom: 15px;
+    left: 40%;
+  }
+}

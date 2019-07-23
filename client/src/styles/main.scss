@@ -1,0 +1,21 @@
+@import "./components/all";
+@import "./layout/all";
+
+html {
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Quicksand, sans-serif;
+}
+
+ul {
+  list-style-type: none;
+}

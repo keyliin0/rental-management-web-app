@@ -1,0 +1,12 @@
+.places {
+  background-color: #f7f8f9;
+  text-align: center;
+  & .title {
+    display: inline-block;
+    margin-top: 20px;
+    & h2 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  }
+}

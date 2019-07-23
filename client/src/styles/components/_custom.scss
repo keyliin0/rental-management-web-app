@@ -1,0 +1,11 @@
+// feeback stars
+.stars {
+  & ul li {
+    display: inline-block;
+    margin: 2px;
+    color: #949ca5;
+    & .yellow {
+      color: #f8b42b;
+    }
+  }
+}

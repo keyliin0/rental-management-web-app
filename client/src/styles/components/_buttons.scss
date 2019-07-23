@@ -1,0 +1,16 @@
+.btn-red {
+  display: inline-block;
+  background-color: #f15e75;
+  padding: 0 30px;
+  vertical-align: middle;
+  height: 48px;
+  border: none;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 5px;
+  transition: 0.2s;
+  &:hover {
+    background-color: #f58d9d;
+  }
+}
