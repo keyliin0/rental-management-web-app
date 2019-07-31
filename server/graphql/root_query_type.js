@@ -17,6 +17,19 @@ const Reservation = mongoose.model("reservations");
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: () => ({
+    Property: {
+      type: PropertyType,
+      args: {
+        id: { type: GraphQLID }
+      },
+      async resolve(parentValue, { id }) {
+        const property = await Property.findById(id).populate(
+          "owner",
+          "firstname lastname imgURL"
+        );
+        return property;
+      }
+    },
     Properties: {
       type: new GraphQLList(PropertyType),
       args: {

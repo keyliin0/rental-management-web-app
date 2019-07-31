@@ -4,7 +4,8 @@
   width: 183px;
   height: 56px;
   color: #4f5962;
-  & input[type="text"] {
+  & input[type="text"],
+  input[type="number"] {
     width: 100%;
     border: 1px solid #aaa;
     border-radius: 7px;
@@ -20,12 +21,19 @@
     line-height: 21.4286px;
     font-weight: 700;
   }
-  & input[type="text"]:focus {
+  & input[type="text"]:focus,
+  input[type="number"]:focus {
     border-color: dodgerBlue;
     box-shadow: 0 0 3px 0 dodgerBlue;
   }
-  & input[type="text"]:focus + i {
+  & input[type="text"]:focus + i,
+  input[type="number"]:focus + i {
     color: dodgerBlue;
+  }
+  & input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
   & i {
     position: absolute;

@@ -84,6 +84,7 @@ const mutation = new GraphQLObjectType({
         req
       ) {
         images = await Promise.all(images);
+        console.log(images);
         return Property.Create(
           images,
           name,

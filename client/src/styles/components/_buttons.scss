@@ -14,3 +14,17 @@
     background-color: #f58d9d;
   }
 }
+
+.btn-icon {
+  display: inline-block;
+  margin: 5px;
+  color: #00c1cf;
+  border: 1px solid #00c1cf;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #00c1cf;
+    color: white;
+  }
+}

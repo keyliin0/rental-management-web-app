@@ -27,8 +27,8 @@ const PropertySchema = new Schema({
   thumbnail: { type: String },
   owner: { type: Schema.Types.ObjectId, ref: "users" },
   rating: {
-    sum: { type: Number }, // sum of ratings
-    count: { type: Number } // number of raters
+    sum: { type: Number, default: 0 }, // sum of ratings
+    count: { type: Number, default: 0 } // number of raters
   },
   reserved: [
     {
@@ -124,6 +124,10 @@ PropertySchema.statics.Create = async function(
       encodeURI(address)
   );
   let cords = null;
+  // if address is invalid
+  if (request.data.results.length == 0) {
+    return new Error("Address is invalid");
+  }
   if (request.data.results[0])
     cords = [
       request.data.results[0].geometry.lng,

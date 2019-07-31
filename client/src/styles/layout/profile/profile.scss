@@ -1,0 +1,8 @@
+.profile {
+  position: relative;
+  & .wrapper {
+    background-color: #f7f8f9;
+    height: 85vh;
+    overflow: auto;
+  }
+}

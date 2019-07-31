@@ -1,17 +1,19 @@
-import React from "react";
+import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Property from "./Property";
+import _ from "lodash";
 
-const Properties = () => {
-  return (
-    <Row className="properties">
-      <Property />
-      <Property />
-      <Property />
-      <Property />
-      <Property />
-    </Row>
-  );
-};
+class Properties extends Component {
+  renderProperties() {
+    const { Properties } = this.props.Properties;
+    console.log(Properties);
+    return _.map(Properties, property => {
+      return <Property property={property} key={property._id} />;
+    });
+  }
+  render() {
+    return <Row className="properties">{this.renderProperties()}</Row>;
+  }
+}
 
 export default Properties;

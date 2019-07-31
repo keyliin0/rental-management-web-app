@@ -1,0 +1,36 @@
+.reservations {
+  background-color: #f7f8f9;
+  & h5 {
+    margin: 10px;
+    font-weight: bold;
+  }
+  & .title {
+    margin: 15px 0;
+    & h1 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    &::after {
+      content: " ";
+      display: block;
+      margin-top: 25px;
+      border-bottom: 1px solid #777777;
+      opacity: 0.1;
+    }
+  }
+  & .content {
+    text-align: center;
+    background-color: white;
+    & .header {
+      border-bottom: 2px solid #f7f8f9;
+      padding: 10px 0;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    & .reservation {
+      & .inner {
+        overflow: auto;
+      }
+    }
+  }
+}

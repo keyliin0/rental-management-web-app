@@ -8,7 +8,7 @@ const SearchBar = () => {
         <Row>
           <div className="wrapper">
             <div className="full-input" style={{ width: "300px" }}>
-              <i class="fas fa-map-marker-alt" />
+              <i className="fas fa-map-marker-alt" />
               <input type="text" placeholder="Where to go?" />
             </div>
             <div className="full-input" style={{ marginLeft: "13px" }}>

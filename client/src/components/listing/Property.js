@@ -1,53 +1,55 @@
 import React from "react";
 import { Col } from "react-bootstrap";
 
-const Property = () => {
+const RenderRating = (sum, count) => {
+  var stars = 0;
+  if (count) stars = parseInt(sum / count);
+  var arr = [];
+  for (var i = 1; i <= stars; i++)
+    arr.push(
+      <li key={i}>
+        <i className="fas fa-star yellow" />
+      </li>
+    );
+  for (var i = stars + 1; i <= 5; i++)
+    arr.push(
+      <li key={i}>
+        <i className="far fa-star " />
+      </li>
+    );
+  return arr;
+};
+const Property = ({ property }) => {
   return (
     <Col md={4}>
       <div className="property">
         <div className="thumbnail image-hover-effect">
-          <img src="//89239-660555-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2018/10/27-450x300.jpg" />
-          <div class="title">185$/night</div>
+          <img src={property.images[0]} />
+          <div className="title">{property.price}$/night</div>
         </div>
         <div className="info">
           <div className="name">
-            <h2>Modern Apartment With Ocean View</h2>
+            <h2>{property.name}</h2>
           </div>
           <div className="address">
-            <address>4725 Collins Ave, Miami Beach, FL 33140</address>
+            <address>{property.address}</address>
           </div>
           <div className="amenities">
             <ul>
               <li>
-                <i className="fas fa-bed" /> 4 Bedrooms
+                <i className="fas fa-bed" /> {property.bedrooms} Bedrooms
               </li>
               <li>
-                <i className="fas fa-shower" /> 2 Baths
+                <i className="fas fa-shower" /> {property.bathrooms} Baths
               </li>
               <li>
-                <i className="fas fa-shower" /> 6 Guests
+                <i className="fas fa-shower" /> {property.guests} Guests
               </li>
             </ul>
           </div>
-          <div className="type">House</div>
+          <div className="type">{property.type}</div>
           <div className="stars">
-            <ul>
-              <li>
-                <i className="fas fa-star yellow" />
-              </li>
-              <li>
-                <i className="fas fa-star yellow" />
-              </li>
-              <li>
-                <i className="fas fa-star yellow" />
-              </li>
-              <li>
-                <i className="far fa-star " />
-              </li>
-              <li>
-                <i className="far fa-star" />
-              </li>
-            </ul>
+            <ul>{RenderRating(property.rating.sum, property.rating.count)}</ul>
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ const {
   GraphQLFloat
 } = graphql;
 const UserType = require("./user_type");
+const GraphQLLong = require("graphql-type-long");
 
 const PropertyType = new GraphQLObjectType({
   name: "PropertyType",
@@ -60,8 +61,8 @@ const PropertyType = new GraphQLObjectType({
         new GraphQLObjectType({
           name: "CordsType",
           fields: () => ({
-            start: { type: GraphQLInt }, // timestamp
-            end: { type: GraphQLInt } // timestamp
+            start: { type: GraphQLLong }, // timestamp
+            end: { type: GraphQLLong } // timestamp
           })
         })
       )

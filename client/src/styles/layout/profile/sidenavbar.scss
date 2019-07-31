@@ -1,0 +1,21 @@
+.sidenav {
+  position: absolute;
+  height: 100%;
+  background-color: white;
+  padding: 0 25px;
+  & ul {
+    & li {
+      z-index: 1;
+      cursor: pointer;
+      padding: 30px;
+      color: #212529;
+      font-size: 16px;
+      font-weight: 700;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        color: #f15e75;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}

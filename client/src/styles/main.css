@@ -4,7 +4,8 @@
   width: 183px;
   height: 56px;
   color: #4f5962; }
-  .full-input input[type="text"] {
+  .full-input input[type="text"],
+  .full-input input[type="number"] {
     width: 100%;
     border: 1px solid #aaa;
     border-radius: 7px;
@@ -19,11 +20,17 @@
     font-size: 15px;
     line-height: 21.4286px;
     font-weight: 700; }
-  .full-input input[type="text"]:focus {
+  .full-input input[type="text"]:focus,
+  .full-input input[type="number"]:focus {
     border-color: dodgerBlue;
     box-shadow: 0 0 3px 0 dodgerBlue; }
-  .full-input input[type="text"]:focus + i {
+  .full-input input[type="text"]:focus + i,
+  .full-input input[type="number"]:focus + i {
     color: dodgerBlue; }
+  .full-input input[type="number"]::-webkit-inner-spin-button,
+  .full-input input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; }
   .full-input i {
     position: absolute;
     left: 0;
@@ -46,6 +53,18 @@
   transition: 0.2s; }
   .btn-red:hover {
     background-color: #f58d9d; }
+
+.btn-icon {
+  display: inline-block;
+  margin: 5px;
+  color: #00c1cf;
+  border: 1px solid #00c1cf;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer; }
+  .btn-icon:hover {
+    background-color: #00c1cf;
+    color: white; }
 
 .image-hover-effect {
   overflow: hidden;
@@ -330,6 +349,141 @@ footer .icons {
     .propertyinfo .book button {
       display: block;
       margin: auto; }
+
+.sidenav {
+  position: absolute;
+  height: 100%;
+  background-color: white;
+  padding: 0 25px; }
+  .sidenav ul li {
+    z-index: 1;
+    cursor: pointer;
+    padding: 30px;
+    color: #212529;
+    font-size: 16px;
+    font-weight: 700;
+    transition: all 0.3s ease-in-out; }
+    .sidenav ul li:hover {
+      color: #f15e75;
+      transform: translateY(-2px); }
+
+.profile {
+  position: relative; }
+  .profile .wrapper {
+    background-color: #f7f8f9;
+    height: 85vh;
+    overflow: auto; }
+
+.mylistings {
+  background-color: #f7f8f9; }
+  .mylistings .title {
+    margin: 15px 0; }
+    .mylistings .title h1 {
+      font-size: 24px;
+      font-weight: bold; }
+    .mylistings .title::after {
+      content: " ";
+      display: block;
+      margin-top: 25px;
+      border-bottom: 1px solid #777777;
+      opacity: 0.1; }
+  .mylistings .content {
+    text-align: center;
+    background-color: white; }
+    .mylistings .content .header {
+      border-bottom: 2px solid #f7f8f9;
+      padding: 10px 0;
+      font-size: 14px;
+      font-weight: 600; }
+    .mylistings .content .property {
+      border-bottom: 2px solid #f7f8f9; }
+      .mylistings .content .property .outer {
+        position: relative;
+        width: 100%;
+        height: 120px;
+        text-align: center;
+        overflow: auto; }
+      .mylistings .content .property .inner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%); }
+      .mylistings .content .property .name {
+        text-align: left;
+        color: #f15e75;
+        font-weight: bold; }
+      .mylistings .content .property .address {
+        text-align: left; }
+      .mylistings .content .property .price {
+        display: table-cell;
+        vertical-align: middle;
+        font-weight: bold; }
+  .mylistings .loadmore {
+    margin: 10px 0;
+    text-align: center; }
+
+.addlisting {
+  background-color: #f7f8f9; }
+  .addlisting .title {
+    margin: 15px 0; }
+    .addlisting .title h1 {
+      font-size: 24px;
+      font-weight: bold; }
+    .addlisting .title::after {
+      content: " ";
+      display: block;
+      margin-top: 25px;
+      border-bottom: 1px solid #777777;
+      opacity: 0.1; }
+  .addlisting .content {
+    padding: 15px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: white; }
+    .addlisting .content .imageviewer {
+      text-align: center; }
+      .addlisting .content .imageviewer img {
+        object-fit: cover;
+        cursor: pointer;
+        width: 186px;
+        height: 186px;
+        margin: 7px; }
+        .addlisting .content .imageviewer img:hover {
+          opacity: 0.7; }
+    .addlisting .content .full-input {
+      width: 200px;
+      margin: auto; }
+    .addlisting .content button {
+      margin-top: 10px; }
+
+.reservations {
+  background-color: #f7f8f9; }
+  .reservations h5 {
+    margin: 10px;
+    font-weight: bold; }
+  .reservations .title {
+    margin: 15px 0; }
+    .reservations .title h1 {
+      font-size: 24px;
+      font-weight: bold; }
+    .reservations .title::after {
+      content: " ";
+      display: block;
+      margin-top: 25px;
+      border-bottom: 1px solid #777777;
+      opacity: 0.1; }
+  .reservations .content {
+    text-align: center;
+    background-color: white; }
+    .reservations .content .header {
+      border-bottom: 2px solid #f7f8f9;
+      padding: 10px 0;
+      font-size: 14px;
+      font-weight: 600; }
+    .reservations .content .reservation .inner {
+      overflow: auto; }
 
 html {
   font-size: 14px;

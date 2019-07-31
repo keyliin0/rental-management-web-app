@@ -1,14 +1,18 @@
-import React from "react";
+import React, { Component } from "react";
 import SearchBar from "./SearchBar";
 import Listings from "./Listings";
+import { graphql } from "react-apollo";
+import { PropertiesQuery } from "../../queries/Property";
 
-const Listing = () => {
-  return (
-    <div>
-      <SearchBar />
-      <Listings />
-    </div>
-  );
-};
+class Listing extends Component {
+  render() {
+    return (
+      <div>
+        <SearchBar />
+        <Listings Properties={this.props.data} />
+      </div>
+    );
+  }
+}
 
-export default Listing;
+export default graphql(PropertiesQuery)(Listing);
