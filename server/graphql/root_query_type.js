@@ -11,8 +11,11 @@ const {
 } = graphql;
 const PropertyType = require("./types/property_type");
 const ReservationType = require("./types/reservation_type");
+const UserType = require("./types/user_type");
+const InvoiceType = require("./types/invoice_type");
 const Property = mongoose.model("properties");
 const Reservation = mongoose.model("reservations");
+const Invoice = mongoose.model("invoices");
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -58,6 +61,31 @@ const RootQuery = new GraphQLObjectType({
 
       resolve(parentValue, args, req) {
         return Reservation.Get(req.user);
+      }
+    },
+    Reservation: {
+      type: ReservationType,
+      args: {
+        id: { type: GraphQLID }
+      },
+      async resolve(parentValue, { id }, req) {
+        const reservation = await Reservation.findById(id)
+          .populate("owner", "firstname lastname imgURL")
+          .populate("user", "firstname lastname imgURL");
+        return reservation;
+      }
+    },
+    Invoices: {
+      type: new GraphQLList(InvoiceType),
+      resolve(parentValue, args, req) {
+        return Invoice.Get(req.user);
+      }
+    },
+
+    User: {
+      type: UserType,
+      resolve(parentValue, args, req) {
+        return req.user;
       }
     }
   })

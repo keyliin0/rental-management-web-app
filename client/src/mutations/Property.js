@@ -39,3 +39,13 @@ export const CreateProperty = gql`
     }
   }
 `;
+
+export const DeleteProperty = gql`
+  mutation DeleteProperty($property_id: ID) {
+    DeleteProperty(property_id: $property_id) {
+      _id
+      name
+      images
+    }
+  }
+`;

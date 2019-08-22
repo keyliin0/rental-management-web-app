@@ -98,13 +98,13 @@ ReservationSchema.statics.ChangeStatus = async function(
   // access check
   if (
     (status == "cancelled" && user.id != reservation.user) ||
-    ((status == "accepted" || status == "rejected") &&
+    ((status == "accepted" || status == "cancelled") &&
       reservation.owner != user.id)
   ) {
     return new Error("authentication required");
   }
   // cancel the reservation
-  if (status == "cancelled" || status == "rejected") {
+  if (status == "cancelled") {
     // update the propery by removing the reservation array
     const property = await Property.findById(reservation.property);
     // check if the user did not delete the property

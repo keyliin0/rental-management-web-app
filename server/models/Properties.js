@@ -173,5 +173,12 @@ PropertySchema.statics.Create = async function(
   return property;
 };
 
+PropertySchema.statics.DeleteProperty = async function(property_id, user) {
+  const Property = mongoose.model("properties");
+  const property = await Property.findById(property_id);
+  await Property.findByIdAndDelete(property_id);
+  return property;
+};
+
 PropertySchema.index({ location: "2dsphere" });
 mongoose.model("properties", PropertySchema);

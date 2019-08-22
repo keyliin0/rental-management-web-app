@@ -46,6 +46,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(bodyParser.json());
+
 // services
 require("./services/passport");
 require("./services/cloudinary");
@@ -54,6 +56,7 @@ require("./services/cloudinary");
 require("./routes/AuthRoutes")(app);
 require("./routes/PropertyRoutes")(app);
 require("./routes/ReservationRoutes")(app);
+require("./routes/billingRoutes")(app);
 
 //  graphql
 app.use(

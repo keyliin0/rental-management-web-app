@@ -1,9 +1,5 @@
-.reservations {
+.invoices {
   background-color: #f7f8f9;
-  & h5 {
-    margin: 10px;
-    font-weight: bold;
-  }
   & .title {
     margin: 15px 0;
     & h1 {
@@ -27,11 +23,11 @@
       font-size: 14px;
       font-weight: 600;
     }
-    & .reservation {
+    & .invoice {
       & .outer {
         position: relative;
         width: 100%;
-        height: 75px;
+        height: 40px;
         text-align: center;
       }
       & .inner {
@@ -49,19 +45,14 @@
         border-radius: 5px;
         color: white;
         font-weight: 600;
-      }
-      & .span-confirmed {
         background-color: #7ed321;
       }
-      & .span-cancelled {
-        background-color: red;
-      }
-      & .span-pending {
-        background-color: #0176ff;
-      }
-      & .span-paid {
+      & .details-btn {
+        padding: 5px;
         background-color: #f15e75;
-        padding: 5px 20px;
+        color: white;
+        border: none;
+        border-radius: 5px;
       }
     }
   }
@@ -103,5 +94,20 @@
     padding: 20px 0;
     line-height: 45px;
     font-size: 16px;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .section-to-print,
+  .section-to-print * {
+    visibility: visible;
+  }
+  .section-to-print {
+    position: absolute;
+    left: 0;
+    top: 0;
   }
 }

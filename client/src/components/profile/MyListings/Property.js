@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
+import Delete_btn from "./Delete_btn";
 
 class Property extends Component {
   render() {
@@ -39,9 +40,7 @@ class Property extends Component {
               <div className="btn-icon">
                 <i className="fas fa-pen" />
               </div>
-              <div className="btn-icon">
-                <i className="far fa-trash-alt" />
-              </div>
+              <Delete_btn property_id={property._id} />
             </div>
           </div>
         </Col>

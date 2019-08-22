@@ -149,6 +149,17 @@ footer .icons {
     footer .icons .icon i {
       vertical-align: -10px; }
 
+@media print {
+  body * {
+    visibility: hidden; }
+  .section-to-print,
+  .section-to-print * {
+    visibility: visible; }
+  .section-to-print {
+    position: absolute;
+    left: 0;
+    top: 0; } }
+
 .banner {
   position: relative; }
   .banner .bg-image {
@@ -482,8 +493,151 @@ footer .icons {
       padding: 10px 0;
       font-size: 14px;
       font-weight: 600; }
+    .reservations .content .reservation .outer {
+      position: relative;
+      width: 100%;
+      height: 75px;
+      text-align: center; }
     .reservations .content .reservation .inner {
-      overflow: auto; }
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%); }
+    .reservations .content .reservation .total {
+      font-weight: 600; }
+    .reservations .content .reservation .span-status {
+      padding: 5px;
+      border-radius: 5px;
+      color: white;
+      font-weight: 600; }
+    .reservations .content .reservation .span-confirmed {
+      background-color: #7ed321; }
+    .reservations .content .reservation .span-cancelled {
+      background-color: red; }
+    .reservations .content .reservation .span-pending {
+      background-color: #0176ff; }
+    .reservations .content .reservation .span-paid {
+      background-color: #f15e75;
+      padding: 5px 20px; }
+
+.reservation_details {
+  margin-top: 20px;
+  background-color: white; }
+  .reservation_details .header {
+    margin: 25px 14px; }
+    .reservation_details .header h1 {
+      font-size: 24px;
+      font-weight: bold;
+      display: inline-block; }
+    .reservation_details .header span {
+      padding: 5px;
+      border-radius: 5px;
+      color: white;
+      font-weight: 600;
+      margin-left: 10px; }
+    .reservation_details .header .span-confirmed {
+      background-color: #7ed321; }
+    .reservation_details .header .span-cancelled {
+      background-color: red; }
+    .reservation_details .header .span-pending {
+      background-color: #0176ff; }
+    .reservation_details .header .span-paid {
+      background-color: #f15e75;
+      padding: 5px 20px; }
+  .reservation_details .content {
+    text-align: center;
+    padding: 20px 0;
+    line-height: 45px;
+    font-size: 16px; }
+
+.invoices {
+  background-color: #f7f8f9; }
+  .invoices .title {
+    margin: 15px 0; }
+    .invoices .title h1 {
+      font-size: 24px;
+      font-weight: bold; }
+    .invoices .title::after {
+      content: " ";
+      display: block;
+      margin-top: 25px;
+      border-bottom: 1px solid #777777;
+      opacity: 0.1; }
+  .invoices .content {
+    text-align: center;
+    background-color: white; }
+    .invoices .content .header {
+      border-bottom: 2px solid #f7f8f9;
+      padding: 10px 0;
+      font-size: 14px;
+      font-weight: 600; }
+    .invoices .content .invoice .outer {
+      position: relative;
+      width: 100%;
+      height: 40px;
+      text-align: center; }
+    .invoices .content .invoice .inner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%); }
+    .invoices .content .invoice .total {
+      font-weight: 600; }
+    .invoices .content .invoice .span-status {
+      padding: 5px;
+      border-radius: 5px;
+      color: white;
+      font-weight: 600;
+      background-color: #7ed321; }
+    .invoices .content .invoice .details-btn {
+      padding: 5px;
+      background-color: #f15e75;
+      color: white;
+      border: none;
+      border-radius: 5px; }
+
+.reservation_details {
+  margin-top: 20px;
+  background-color: white; }
+  .reservation_details .header {
+    margin: 25px 14px; }
+    .reservation_details .header h1 {
+      font-size: 24px;
+      font-weight: bold;
+      display: inline-block; }
+    .reservation_details .header span {
+      padding: 5px;
+      border-radius: 5px;
+      color: white;
+      font-weight: 600;
+      margin-left: 10px; }
+    .reservation_details .header .span-confirmed {
+      background-color: #7ed321; }
+    .reservation_details .header .span-cancelled {
+      background-color: red; }
+    .reservation_details .header .span-pending {
+      background-color: #0176ff; }
+    .reservation_details .header .span-paid {
+      background-color: #f15e75;
+      padding: 5px 20px; }
+  .reservation_details .content {
+    text-align: center;
+    padding: 20px 0;
+    line-height: 45px;
+    font-size: 16px; }
+
+@media print {
+  body * {
+    visibility: hidden; }
+  .section-to-print,
+  .section-to-print * {
+    visibility: visible; }
+  .section-to-print {
+    position: absolute;
+    left: 0;
+    top: 0; } }
 
 html {
   font-size: 14px;

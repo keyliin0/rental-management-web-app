@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 const PropertyType = require("./types/property_type");
 const ReservationType = require("./types/reservation_type");
+const InvoiceType = require("./types/invoice_type");
 const Property = mongoose.model("properties");
 const Reservation = mongoose.model("reservations");
+const Invoice = mongoose.model("invoices");
 const graphql = require("graphql");
 const {
   GraphQLObjectType,
@@ -104,6 +106,15 @@ const mutation = new GraphQLObjectType({
         );
       }
     },
+    DeleteProperty: {
+      type: PropertyType,
+      args: {
+        property_id: { type: GraphQLID }
+      },
+      resolve(parentValue, { property_id }, req) {
+        return Property.DeleteProperty(property_id, req.user);
+      }
+    },
     CreateReservation: {
       type: ReservationType,
       args: {
@@ -131,11 +142,21 @@ const mutation = new GraphQLObjectType({
     ChangeStatusReservation: {
       type: ReservationType,
       args: {
-        property_id: { type: GraphQLID },
+        reservation_id: { type: GraphQLID },
         status: { type: GraphQLString }
       },
-      resolve(parentValue, { property_id, status }, req) {
-        return Reservation.ChangeStatus(property_id, status, req.user);
+      resolve(parentValue, { reservation_id, status }, req) {
+        return Reservation.ChangeStatus(reservation_id, status, req.user);
+      }
+    },
+    CreateInvoice: {
+      type: ReservationType,
+      args: {
+        reservation_id: { type: GraphQLID },
+        token_id: { type: GraphQLID }
+      },
+      resolve(parentValue, { reservation_id, token_id }, req) {
+        return Invoice.Create(reservation_id, token_id, req.user);
       }
     }
   }

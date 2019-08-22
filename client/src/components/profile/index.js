@@ -4,6 +4,8 @@ import Navbar from "./Navbar";
 import AddListing from "./AddListing";
 import MyListings from "./MyListings/MyListings";
 import Reservations from "./Reservations/Reservations";
+import Invoices from "./Invoices";
+import Reservation_Details from "./Reservations/Reservation_Details";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const Profile = () => {
@@ -20,6 +22,12 @@ const Profile = () => {
               path="/profile/reservations"
               component={Reservations}
             />
+            <Route
+              exact
+              path="/profile/reservation/:id"
+              component={Reservation_Details}
+            />
+            <Route exact path="/profile/invoices" component={Invoices} />
           </Router>
         </Container>
       </div>
