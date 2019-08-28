@@ -37,7 +37,8 @@
     top: 15px;
     padding: 9px 8px;
     transition: 0.3s;
-    font-size: 18px; }
+    font-size: 18px;
+    z-index: 1; }
 
 .btn-red {
   display: inline-block;
@@ -105,6 +106,9 @@
   color: #949ca5; }
   .stars ul li .yellow {
     color: #f8b42b; }
+
+.react-datepicker-popper {
+  z-index: 100 !important; }
 
 .home_nav {
   color: #4f5962;
@@ -638,6 +642,17 @@ footer .icons {
     position: absolute;
     left: 0;
     top: 0; } }
+
+.leaflet-container {
+  height: 90vh;
+  width: 100%; }
+
+.listing_wrapper {
+  height: 90vh;
+  overflow: auto; }
+
+.nearby .col {
+  padding: 0; }
 
 html {
   font-size: 14px;

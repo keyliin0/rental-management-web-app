@@ -5,7 +5,7 @@ import _ from "lodash";
 
 class Properties extends Component {
   renderProperties() {
-    const { Properties } = this.props.Properties;
+    const { Properties } = this.props;
     console.log(Properties);
     return _.map(Properties, property => {
       return <Property property={property} key={property._id} />;

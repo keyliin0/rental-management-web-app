@@ -16,6 +16,7 @@ const InvoiceType = require("./types/invoice_type");
 const Property = mongoose.model("properties");
 const Reservation = mongoose.model("reservations");
 const Invoice = mongoose.model("invoices");
+const GraphQLLong = require("graphql-type-long");
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -38,12 +39,20 @@ const RootQuery = new GraphQLObjectType({
       args: {
         page: { type: GraphQLInt },
         city: { type: GraphQLString },
+        address: { type: GraphQLString },
         lng: { type: GraphQLFloat },
-        lat: { type: GraphQLFloat }
+        lat: { type: GraphQLFloat },
+        start_date: { type: GraphQLLong },
+        end_date: { type: GraphQLLong }
       },
-      resolve(parentValue, { page, city, lng, lat }) {
-        if (lng && lat) return Property.GetNearby(lng, lat);
-        else if (city) return Property.GetByCity(page, city);
+      resolve(
+        parentValue,
+        { page, city, address, lng, lat, start_date, end_date }
+      ) {
+        if (address) return Property.GetNearby(address);
+        if (lng && lat) return Property.GetNearbyLngLat(lng, lat);
+        else if (city)
+          return Property.GetByCity(page, city, start_date, end_date);
         else return Property.Get(page);
       }
     },

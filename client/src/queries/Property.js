@@ -44,8 +44,24 @@ export const PropertyQuery = gql`
 `;
 
 export const PropertiesQuery = gql`
-  query PropertiesQuery($page: Int, $city: String, $lng: Float, $lat: Float) {
-    Properties(page: $page, city: $city, lng: $lng, lat: $lat) {
+  query PropertiesQuery(
+    $page: Int
+    $city: String
+    $address: String
+    $lng: Float
+    $lat: Float
+    $start_date: Long
+    $end_date: Long
+  ) {
+    Properties(
+      page: $page
+      city: $city
+      address: $address
+      lng: $lng
+      lat: $lat
+      start_date: $start_date
+      end_date: $end_date
+    ) {
       _id
       name
       type
@@ -59,6 +75,7 @@ export const PropertiesQuery = gql`
       city
       location {
         type
+        coordinates
       }
       price
       availability {

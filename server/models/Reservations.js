@@ -56,23 +56,22 @@ ReservationSchema.statics.Create = async function(
     return new Error("property does not exist");
   }
   // check if its reserved
-  if (checkReserved(property, Date.parse(checkin), Date.parse(checkout))) {
+  if (checkReserved(property, checkin, checkout)) {
     return new Error("property reserved");
   }
   property.reserved.push({
-    start: Date.parse(checkin),
-    end: Date.parse(checkout)
+    start: checkin,
+    end: checkout
   });
   await property.save();
   // calculate the total price
   const total =
-    property.price *
-    ((Date.parse(checkout) - Date.parse(checkin)) / (24 * 60 * 60 * 1000) + 1);
+    property.price * ((checkout - checkin) / (24 * 60 * 60 * 1000) + 1);
   const reservation = new Reservation({
     address: property.address,
     date: Date.now(),
-    checkin: Date.parse(checkin),
-    checkout: Date.parse(checkout),
+    checkin: checkin,
+    checkout: checkout,
     guests,
     pets,
     total,

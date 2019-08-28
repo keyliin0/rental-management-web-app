@@ -58,21 +58,36 @@ PropertySchema.statics.Get = async function(page) {
   return properties;
 };
 
-PropertySchema.statics.GetByCity = async function(page, city) {
+PropertySchema.statics.GetByCity = async function(
+  page,
+  city,
+  start_date,
+  end_date
+) {
   const Property = mongoose.model("properties");
-  const properties = await Property.find({ city: city })
+  const properties = await Property.find({
+    city: city,
+    reserved: {
+      $not: {
+        $elemMatch: {
+          start: { $lte: end_date },
+          end: { $gte: start_date }
+        }
+      }
+    }
+  })
     .limit(10)
     .skip(10 * parseInt(page))
     .populate("owner", "firstname lastname imgURL");
   return properties;
 };
 
-PropertySchema.statics.GetNearby = async function(lng, lat) {
+PropertySchema.statics.GetNearbyLngLat = async function(lng, lat) {
   const Property = mongoose.model("properties");
   const properties = await Property.find({
     location: {
       $near: {
-        $maxDistance: 1000,
+        $maxDistance: 100000,
         $geometry: {
           type: "Point",
           coordinates: [parseFloat(lng), parseFloat(lat)]
@@ -82,6 +97,25 @@ PropertySchema.statics.GetNearby = async function(lng, lat) {
   })
     .limit(20)
     .populate("owner", "firstname lastname imgURL");
+  return properties;
+};
+
+PropertySchema.statics.GetNearby = async function(address) {
+  const Property = mongoose.model("properties");
+  const request = await axios.get(
+    "https://api.opencagedata.com/geocode/v1/json?key=" +
+      keys.opencage_api_key +
+      "&q=" +
+      encodeURI(address)
+  );
+  // if address is
+  if (request.data.results.length == 0 || !request.data.results[0]) {
+    return new Error("Address is invalid");
+  }
+  const properties = Property.GetNearbyLngLat(
+    request.data.results[0].geometry.lng,
+    request.data.results[0].geometry.lat
+  );
   return properties;
 };
 

@@ -121,7 +121,7 @@ class propertyinfo extends Component {
                 </div>
               </div>
             </Col>
-            <Book />
+            <Book Property={Property} />
           </Row>
         </Container>
       </div>

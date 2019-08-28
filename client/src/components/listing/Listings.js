@@ -3,14 +3,10 @@ import Properties from "./Properties";
 import { Container, Row, Col } from "react-bootstrap";
 
 class Listings extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { page: 1 };
-  }
   LoadMore() {
     const { Properties } = this.props;
     Properties.fetchMore({
-      variables: { page: this.state.page },
+      variables: { page: this.props.page },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
         return Object.assign({}, prev, {
@@ -18,7 +14,7 @@ class Listings extends Component {
         });
       }
     });
-    this.setState({ page: this.state.page + 1 });
+    this.props.updatePage(this.props.page + 1);
   }
   render() {
     return (
@@ -31,7 +27,7 @@ class Listings extends Component {
               </div>
             </Col>
           </Row>
-          <Properties Properties={this.props.Properties} />
+          <Properties Properties={this.props.Properties.Properties} />
           <Row>
             <Col>
               <div className="loadmore">

@@ -15,6 +15,7 @@ const {
   GraphQLBoolean
 } = graphql;
 const { GraphQLUpload } = require("graphql-upload");
+const GraphQLLong = require("graphql-type-long");
 
 const mutation = new GraphQLObjectType({
   name: "Mutation",
@@ -118,8 +119,8 @@ const mutation = new GraphQLObjectType({
     CreateReservation: {
       type: ReservationType,
       args: {
-        checkin: { type: GraphQLString },
-        checkout: { type: GraphQLString },
+        checkin: { type: GraphQLLong },
+        checkout: { type: GraphQLLong },
         guests: { type: GraphQLInt },
         pets: { type: GraphQLBoolean },
         property_id: { type: GraphQLID }
