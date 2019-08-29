@@ -5,16 +5,16 @@ import AddListing from "./AddListing";
 import MyListings from "./MyListings/MyListings";
 import Reservations from "./Reservations/Reservations";
 import Invoices from "./Invoices";
-import Reservation_Details from "./Reservations/Reservation_Details";
+import Reservation_Details from "./Reservations/Reservation_details/Reservation_Details";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const Profile = () => {
   return (
-    <div className="profile">
-      <Navbar />
-      <div className="wrapper">
-        <Container>
-          <Router>
+    <Router>
+      <div className="profile">
+        <Navbar />
+        <div className="wrapper">
+          <Container>
             <Route exact path="/profile/listings" component={MyListings} />
             <Route exact path="/profile/addlisting" component={AddListing} />
             <Route
@@ -28,10 +28,10 @@ const Profile = () => {
               component={Reservation_Details}
             />
             <Route exact path="/profile/invoices" component={Invoices} />
-          </Router>
-        </Container>
+          </Container>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 };
 

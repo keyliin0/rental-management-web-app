@@ -12,6 +12,7 @@ export const ReservationsQuery = gql`
       guests
       pets
       total
+      rated
       owner {
         _id
         googleId
@@ -42,6 +43,7 @@ export const ReservationQuery = gql`
       guests
       pets
       total
+      rated
       owner {
         _id
         googleId

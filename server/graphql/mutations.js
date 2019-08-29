@@ -150,6 +150,16 @@ const mutation = new GraphQLObjectType({
         return Reservation.ChangeStatus(reservation_id, status, req.user);
       }
     },
+    RateReservation: {
+      type: ReservationType,
+      args: {
+        reservation_id: { type: GraphQLID },
+        rate: { type: GraphQLInt }
+      },
+      resolve(parentValue, { reservation_id, rate }, req) {
+        return Reservation.RateReservation(reservation_id, rate, req.user);
+      }
+    },
     CreateInvoice: {
       type: ReservationType,
       args: {

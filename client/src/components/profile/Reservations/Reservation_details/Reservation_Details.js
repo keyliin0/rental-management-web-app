@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { graphql } from "react-apollo";
-import { ReservationQuery } from "../../../queries/Reservation";
+import { ReservationQuery } from "../../../../queries/Reservation";
 import moment from "moment";
+import SendFeedback from "./Send_Feedback";
+import currentUser from "../../../HOC/Current_user";
 
 class Reservation_Details extends Component {
   render() {
@@ -82,6 +84,16 @@ class Reservation_Details extends Component {
                 Total : <b>{reservation.total}$</b>
               </div>
             </Col>
+            {this.props.user._id == reservation.user._id ? (
+              <Col xs={12}>
+                <SendFeedback
+                  reservation_id={reservation._id}
+                  rated={reservation.rated}
+                />
+              </Col>
+            ) : (
+              ""
+            )}
           </Row>
         </Container>
       </div>
@@ -93,4 +105,4 @@ export default graphql(ReservationQuery, {
   options: props => {
     return { variables: { id: props.match.params.id } };
   }
-})(Reservation_Details);
+})(currentUser(Reservation_Details));

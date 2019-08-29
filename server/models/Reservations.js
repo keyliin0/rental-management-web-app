@@ -14,7 +14,8 @@ const ReservationSchema = new Schema(
     total: { type: Number },
     owner: { type: Schema.Types.ObjectId, ref: "users" }, // owner of the property
     user: { type: Schema.Types.ObjectId, ref: "users" }, // the user who wants to make a reservation
-    property: { type: Schema.Types.ObjectId, ref: "properties" }
+    property: { type: Schema.Types.ObjectId, ref: "properties" },
+    rated: { type: Boolean, default: false }
   },
   { usePushEach: true }
 );
@@ -116,6 +117,36 @@ ReservationSchema.statics.ChangeStatus = async function(
     }
   }
   reservation.status = status;
+  await reservation.save();
+  return reservation;
+};
+
+ReservationSchema.statics.RateReservation = async function(
+  reservation_id,
+  star,
+  user
+) {
+  const Reservation = mongoose.model("reservations");
+  const Property = mongoose.model("properties");
+  const reservation = await Reservation.findById(reservation_id)
+    .populate("owner", "firstname lastname imgURL")
+    .populate("user", "firstname lastname imgURL");
+  if (!reservation) {
+    return new Error("reservation not found");
+  }
+  if (reservation.rated) {
+    return new Error("reservation already rated");
+  }
+  if (reservation.user != user.id) {
+    return new Error("authentication required");
+  }
+  const property = await Property.findById(reservation.property);
+  if (property) {
+    property.rating.sum += star;
+    property.rating.count++;
+    await property.save();
+  }
+  reservation.rated = true;
   await reservation.save();
   return reservation;
 };

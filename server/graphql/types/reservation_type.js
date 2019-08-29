@@ -25,6 +25,7 @@ const ReservationType = new GraphQLObjectType({
     guests: { type: GraphQLInt },
     pets: { type: GraphQLBoolean },
     total: { type: GraphQLInt },
+    rated: { type: GraphQLBoolean },
     owner: { type: UserType }, // owner of the property
     user: { type: UserType }, // the user who wants to make a reservation
     property: { type: PropertyType }

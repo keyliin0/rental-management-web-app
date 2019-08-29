@@ -12,6 +12,7 @@ export const ChangeStatusReservation = gql`
       guests
       pets
       total
+      rated
       owner {
         _id
       }
@@ -49,6 +50,38 @@ export const CreateReservation = gql`
       guests
       pets
       total
+      rated
+      owner {
+        _id
+        googleId
+        firstname
+        lastname
+        imgURL
+      }
+      user {
+        _id
+        googleId
+        firstname
+        lastname
+        imgURL
+      }
+    }
+  }
+`;
+
+export const RateReservation = gql`
+  mutation RateReservation($reservation_id: ID, $rate: Int) {
+    RateReservation(reservation_id: $reservation_id, rate: $rate) {
+      _id
+      address
+      date
+      status
+      checkin
+      checkout
+      guests
+      pets
+      total
+      rated
       owner {
         _id
         googleId

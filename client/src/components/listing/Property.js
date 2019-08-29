@@ -1,5 +1,6 @@
 import React from "react";
 import { Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const RenderRating = (sum, count) => {
   var stars = 0;
@@ -23,10 +24,12 @@ const Property = ({ property }) => {
   return (
     <Col md={4}>
       <div className="property">
-        <div className="thumbnail image-hover-effect">
-          <img src={property.images[0]} />
-          <div className="title">{property.price}$/night</div>
-        </div>
+        <Link to={"/listing/" + property._id}>
+          <div className="thumbnail image-hover-effect">
+            <img src={property.images[0]} />
+            <div className="title">{property.price}$/night</div>
+          </div>
+        </Link>
         <div className="info">
           <div className="name">
             <h2>{property.name}</h2>

@@ -10,10 +10,19 @@
       font-size: 14px;
       font-weight: 700;
       margin-left: 20px;
+      cursor: pointer;
       transition: all 0.3s ease-in-out;
       &:hover {
         color: #f15e75;
         transform: translateY(-2px);
+      }
+      & a {
+        text-decoration: none;
+        color: #4f5962;
+        &:hover {
+          color: #f15e75;
+          transform: translateY(-2px);
+        }
       }
     }
   }

@@ -4,6 +4,7 @@ import { graphql } from "react-apollo";
 import { InvoicesQuery } from "../../queries/Invoice";
 import _ from "lodash";
 import moment from "moment";
+import { withRouter } from "react-router-dom";
 
 class Invoices extends Component {
   constructor(props) {
@@ -41,7 +42,16 @@ class Invoices extends Component {
           <Col xs={3}>
             <div className="outer">
               <div className="inner">
-                <button className="details-btn">Details</button>
+                <button
+                  className="details-btn"
+                  onClick={() =>
+                    this.props.history.push(
+                      "/profile/reservation/" + invoice.reservation._id
+                    )
+                  }
+                >
+                  Details
+                </button>
               </div>
             </div>
           </Col>
@@ -69,4 +79,4 @@ class Invoices extends Component {
     );
   }
 }
-export default graphql(InvoicesQuery)(Invoices);
+export default graphql(InvoicesQuery)(withRouter(Invoices));

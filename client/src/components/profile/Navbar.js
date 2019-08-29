@@ -1,18 +1,29 @@
-import React from "react";
+import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { Link, withRouter } from "react-router-dom";
 
-const Navbar = () => {
-  return (
-    <nav className="sidenav">
-      <ul>
-        <li>Home</li>
-        <li>Listing</li>
-        <li>Nearby</li>
-        <li>Abous us</li>
-        <li>Login</li>
-      </ul>
-    </nav>
-  );
-};
+class Navbar extends Component {
+  render() {
+    return (
+      <nav className="sidenav">
+        <ul>
+          <li onClick={() => this.props.history.push("/profile/listings")}>
+            listing
+          </li>
+          <li onClick={() => this.props.history.push("/profile/reservations")}>
+            Reservations
+          </li>
+          <li onClick={() => this.props.history.push("/profile/invoices")}>
+            Invoices
+          </li>
+          <li onClick={() => this.props.history.push("/profile/addlisting")}>
+            Add listing
+          </li>
+          <li>Logout</li>
+        </ul>
+      </nav>
+    );
+  }
+}
 
-export default Navbar;
+export default withRouter(Navbar);
