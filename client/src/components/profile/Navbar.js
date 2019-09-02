@@ -19,7 +19,9 @@ class Navbar extends Component {
           <li onClick={() => this.props.history.push("/profile/addlisting")}>
             Add listing
           </li>
-          <li>Logout</li>
+          <li>
+            <a href="/api/logout">Logout</a>
+          </li>
         </ul>
       </nav>
     );

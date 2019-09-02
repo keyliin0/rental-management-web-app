@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
+import CurrentUser from "./HOC/Current_user";
 
 class Header extends Component {
   render() {
@@ -17,9 +18,17 @@ class Header extends Component {
                 <li onClick={() => this.props.history.push("/nearby")}>
                   Nearby
                 </li>
-                <li>
-                  <a href="/auth/google">Login</a>
-                </li>
+                {!this.props.user ? (
+                  <li>
+                    <a href="/auth/google">Login</a>
+                  </li>
+                ) : (
+                  <li
+                    onClick={() => this.props.history.push("/profile/listings")}
+                  >
+                    Profile
+                  </li>
+                )}
               </ul>
             </Col>
           </Row>
@@ -29,4 +38,4 @@ class Header extends Component {
   }
 }
 
-export default withRouter(Header);
+export default withRouter(CurrentUser(Header));

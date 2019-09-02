@@ -37,9 +37,6 @@ class Property extends Component {
         <Col xs={3}>
           <div className="outer">
             <div className="inner">
-              <div className="btn-icon">
-                <i className="fas fa-pen" />
-              </div>
               <Delete_btn property_id={property._id} />
             </div>
           </div>

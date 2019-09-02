@@ -84,7 +84,8 @@ class Reservation_Details extends Component {
                 Total : <b>{reservation.total}$</b>
               </div>
             </Col>
-            {this.props.user._id == reservation.user._id ? (
+            {this.props.user._id == reservation.user._id &&
+            reservation.status == "paid" ? (
               <Col xs={12}>
                 <SendFeedback
                   reservation_id={reservation._id}

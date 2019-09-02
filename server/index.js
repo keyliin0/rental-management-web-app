@@ -54,8 +54,6 @@ require("./services/cloudinary");
 
 // routes
 require("./routes/AuthRoutes")(app);
-require("./routes/PropertyRoutes")(app);
-require("./routes/ReservationRoutes")(app);
 require("./routes/billingRoutes")(app);
 
 //  graphql

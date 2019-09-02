@@ -131,13 +131,13 @@ ReservationSchema.statics.RateReservation = async function(
   const reservation = await Reservation.findById(reservation_id)
     .populate("owner", "firstname lastname imgURL")
     .populate("user", "firstname lastname imgURL");
-  if (!reservation) {
+  if (!reservation || reservation.status != "paid") {
     return new Error("reservation not found");
   }
   if (reservation.rated) {
     return new Error("reservation already rated");
   }
-  if (reservation.user != user.id) {
+  if (reservation.user._id != user.id) {
     return new Error("authentication required");
   }
   const property = await Property.findById(reservation.property);
