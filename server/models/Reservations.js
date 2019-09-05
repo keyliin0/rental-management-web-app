@@ -31,12 +31,27 @@ checkReserved = (property, start, end) => {
 };
 
 ReservationSchema.statics.Get = async function(user) {
+  // check if the result is cached
+  const redis = require("redis");
+  const client_redis = redis.createClient({ host: "127.0.0.1", port: 6379 });
+  const util = require("util");
+  client_redis.hget = util.promisify(client_redis.hget);
+  const cached_result = await client_redis.hget(user.id, "reservations");
+  if (cached_result) {
+    return JSON.parse(cached_result);
+  }
   const Reservation = mongoose.model("reservations");
   const reservations = await Reservation.find({
     $or: [{ owner: user.id }, { user: user.id }]
   })
     .populate("owner", "firstname lastname imgURL")
     .populate("user", "firstname lastname imgURL");
+  // cache the result
+  await client_redis.hset(
+    user.id,
+    "reservations",
+    JSON.stringify(reservations)
+  );
   return reservations;
 };
 
@@ -81,6 +96,11 @@ ReservationSchema.statics.Create = async function(
     user: user.id
   });
   await reservation.save();
+  // clear the cache for both users
+  const redis = require("redis");
+  const client_redis = redis.createClient({ host: "127.0.0.1", port: 6379 });
+  client_redis.hdel(property.owner.toString(), "reservations");
+  client_redis.hdel(user.id.toString(), "reservations");
   return reservation;
 };
 
@@ -118,6 +138,10 @@ ReservationSchema.statics.ChangeStatus = async function(
   }
   reservation.status = status;
   await reservation.save();
+  const redis = require("redis");
+  const client_redis = redis.createClient({ host: "127.0.0.1", port: 6379 });
+  client_redis.hdel(reservation.owner.toString(), "reservations");
+  client_redis.hdel(reservation.user.toString(), "reservations");
   return reservation;
 };
 

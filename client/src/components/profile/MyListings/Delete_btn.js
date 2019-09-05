@@ -4,6 +4,7 @@ import { DeleteProperty } from "../../../mutations/Property";
 
 class Delete_btn extends Component {
   constructor(props) {
+    super(props);
     this.state = { deleted: false };
   }
   handleClick() {

@@ -9,6 +9,8 @@ const expressGraphQL = require("express-graphql");
 const schema = require("./graphql/schema");
 const { graphqlUploadExpress } = require("graphql-upload");
 const cors = require("cors");
+const redis = require("redis");
+const client_redis = redis.createClient({ host: "127.0.0.1", port: 6379 });
 
 require("./models/Users");
 require("./models/Properties");

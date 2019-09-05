@@ -10,6 +10,14 @@ const InvoiceSchema = new Schema({
 });
 
 InvoiceSchema.statics.Get = async function(user) {
+  const redis = require("redis");
+  const client_redis = redis.createClient({ host: "127.0.0.1", port: 6379 });
+  const util = require("util");
+  client_redis.hget = util.promisify(client_redis.hget);
+  const cached_result = await client_redis.hget(user.id, "invoices");
+  if (cached_result) {
+    return JSON.parse(cached_result);
+  }
   const Invoice = mongoose.model("invoices");
   const invoices = await Invoice.find({
     $or: [{ tenant: user.id }, { owner: user.id }]
@@ -20,6 +28,7 @@ InvoiceSchema.statics.Get = async function(user) {
       "reservation",
       "checkin checkout address date status guests pets total"
     );
+  await client_redis.hset(user.id, "invoices", JSON.stringify(invoices));
   return invoices;
 };
 
@@ -45,6 +54,13 @@ InvoiceSchema.statics.Create = async function(reservation_id, token_id, user) {
   await invoice.save();
   reservation.status = "paid";
   await reservation.save();
+  // clear the cache
+  const redis = require("redis");
+  const client_redis = redis.createClient({ host: "127.0.0.1", port: 6379 });
+  client_redis.hdel(reservation.owner.toString(), "reservations");
+  client_redis.hdel(reservation.user.toString(), "reservations");
+  client_redis.hdel(reservation.owner.toString(), "invoices");
+  client_redis.hdel(reservation.user.toString(), "invoices");
   return reservation;
 };
 
