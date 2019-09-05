@@ -39,6 +39,18 @@ const PropertySchema = new Schema({
 });
 
 PropertySchema.statics.GetMy = async function(user, page) {
+  // check if the result is cached
+  const redis = require("redis");
+  const client_redis = redis.createClient({ host: "127.0.0.1", port: 6379 });
+  const util = require("util");
+  client_redis.hget = util.promisify(client_redis.hget);
+  const cached_result = await client_redis.hget(
+    user.id + " properties",
+    "" + page
+  );
+  if (cached_result) {
+    return JSON.parse(cached_result);
+  }
   const Property = mongoose.model("properties");
   const properties = await Property.find({
     owner: user.id
@@ -46,6 +58,11 @@ PropertySchema.statics.GetMy = async function(user, page) {
     .limit(10)
     .skip(10 * parseInt(page))
     .populate("owner", "firstname lastname imgURL");
+  await client_redis.hset(
+    user.id + " properties",
+    "" + page,
+    JSON.stringify(properties)
+  );
   return properties;
 };
 
@@ -204,6 +221,10 @@ PropertySchema.statics.Create = async function(
     }
   });
   await property.save();
+  // clear cache
+  const redis = require("redis");
+  const client_redis = redis.createClient({ host: "127.0.0.1", port: 6379 });
+  client_redis.del(user.id + " properties");
   return property;
 };
 
@@ -211,6 +232,10 @@ PropertySchema.statics.DeleteProperty = async function(property_id, user) {
   const Property = mongoose.model("properties");
   const property = await Property.findById(property_id);
   await Property.findByIdAndDelete(property_id);
+  // clear cache
+  const redis = require("redis");
+  const client_redis = redis.createClient({ host: "127.0.0.1", port: 6379 });
+  client_redis.del(user.id + " properties");
   return property;
 };
 
