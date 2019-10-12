@@ -4,8 +4,10 @@ module.exports = {
   googleClientSecret: process.env.googleClientSecret,
   cookiekey: process.env.cookiekey,
   redirectDomain: process.env.redirectDomain,
-  amqpURL: process.env.amqpURL,
-  kloudlessApiKey: process.env.kloudlessApiKey,
-  kloudlessID: process.env.kloudlessID,
-  DemoAccountId: process.env.DemoAccountId
+  cloud_name: process.env.cloud_name,
+  cloud_api_key: process.env.cloud_api_key,
+  cloud_api_secret: process.env.cloud_api_secret,
+  opencage_api_key: process.env.opencage_api_key,
+  DemoAccountId: process.env.DemoAccountId,
+  stripeSecretKey: process.env.stripeSecretKey
 };
